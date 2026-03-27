@@ -24,6 +24,18 @@ public class Producer {
 //        properties.setProperty("batch.size","400");
         // To set partitioner (Not Recommended)
 //        properties.setProperty("partitoner.class", RoundRobinPartitioner.class.getName());
+        // set safe producer configs
+        properties.setProperty("acks","all");
+        properties.setProperty("enable.idempotence", "true");
+        properties.setProperty("retries", Integer.toString(Integer.MAX_VALUE));
+        properties.setProperty("timeout delivery.timeout.ms", "120000");
+        properties.setProperty("retry.backoff.ms", "100");
+
+        // For high throughput producer
+        properties.setProperty("linger.ms","20");
+        properties.setProperty("batch.size",Integer.toString(32*1024));
+        properties.setProperty("compression.type", "snappy");
+
         // create the producer
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
