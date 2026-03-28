@@ -350,4 +350,12 @@ To send **large messages** in Kafka:
 
 Broker wise, set max replication fetch size to 10MB \-\> replica.fetch.max.bytes=10485880 in server.properties  
 Consumer side, increase fetch size \-\> max.partition.fetch.bytes=10485880  
-Producer side, increase max request size \-\> max.request.size=10485880  
+Producer side, increase max request size \-\> max.request.size=10485880
+
+**Big Data Ingestion**:
+
+Producers \-\> Kafka \-\> Spark, Flink etc. \-\> Real Time (Analytics, Dashboards, Consumers, Apps)  
+			\-\> Hadoop, S3, RDBMS \-\> Batch(Audit, Reporting, Backup, Data Science)
+
+For logging and monitoring, data sent to  
+Topic application\_logs and application\_metrics which are sent to Splunk via Kafka Connect.
