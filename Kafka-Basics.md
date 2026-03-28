@@ -164,11 +164,11 @@ Delivery Semantics: At least once (mostly used), At most once, exactly once.
 
 In case when autocommit is false, prepare a batch and call .commitAsync on the consumer. Used when accumulating records to buffer and then flushing to the database.  
 while(true){  
-	Batch \+= consumer.poll(Duration.ofMillis(100))  
-	if(isReady(batch)){  
-		Do batch processing synchronously  
-		consumer.commitSync()  
-}  
+&emsp;Batch \+= consumer.poll(Duration.ofMillis(100))  
+&emsp;if(isReady(batch)){  
+&emsp;&emsp;Do batch processing synchronously  
+&emsp;&emsp;consumer.commitSync()  
+&emsp;}  
 }  
 In case when autocommit is false, we can also store offsets externally.  
 Then we need to assign partitions using .seek() API. We need to model and store offsets in db. Need to handle cases when rebalances happen (ConsumerRebalanceListener).  
