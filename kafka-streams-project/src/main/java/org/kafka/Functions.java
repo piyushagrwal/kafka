@@ -29,14 +29,18 @@ public class Functions {
         config.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE_V2);
 
         StreamsBuilder builder = new StreamsBuilder();
-        KStream<String, String> textLines = builder.stream("demo-topic");
-        textLines.to("intermediate-topic");
-        KTable<String, String> table = builder.table("intermediate-topic");
+        KStream<String, String> stream = builder.stream("demo-topic");
+        stream.to("intermediate-topic");
+        // To read as ktable
+        KTable<String, String> ktable = builder.table("intermediate-topic");
+
+        // To read as globaltable
+        GlobalKTable<String, String> globalKTable = builder.globalTable("intermediate-topic");
 
         // Using group by
-        KGroupedTable<String, String> groupedTable = table.groupBy(
+        KGroupedTable<String, String> groupedTable = ktable.groupBy(
                 (key, value) -> new KeyValue<>(value, value));
-        KGroupedStream<String, String> groupedStream = textLines.groupByKey();
+        KGroupedStream<String, String> groupedStream = stream.groupByKey();
 
         // KGroupedStream Aggregate
         KTable<String, Long> aggregatedStream = groupedStream.aggregate(
@@ -71,8 +75,26 @@ public class Functions {
                         .withValueSerde(Serdes.String()));
 
         // Peek
-        KStream<String, String> peekStream = textLines.peek(
+        KStream<String, String> peekStream = stream.peek(
                 (key, value) -> System.out.println("key= "+key+", value="+value));
+
+
+        // Joins
+        // case 1- to enrich the stream
+        KStream<String, String> innerJoin = stream.join(globalKTable,
+                (key, value) -> key,  // Map from stream to key of globalktable
+                (val1, val2) -> "col1 = "+val1+"col 2 = "+ val2); // val1 from stream, val2 from global
+        innerJoin.to("inner-join");
+
+        KStream<String, String> leftJoin = stream.leftJoin(globalKTable,
+                (key, value) -> key,  // Map from stream to key of globalktable
+                (val1, val2) -> {
+                    if(val2 != null){
+                        return val2;
+                    }
+                    return val1;
+                }); // val1 from stream, val2 from global
+        leftJoin.to("left-join");
 
 
     }
