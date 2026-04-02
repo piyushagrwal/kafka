@@ -7,7 +7,14 @@
         <option value="$PROJECT_DIR$/kafka-starter/pom.xml" />
         <option value="$PROJECT_DIR$/kafka-producer-wikimedia/pom.xml" />
         <option value="$PROJECT_DIR$/project-opensearch/pom.xml" />
+        <option value="$PROJECT_DIR$/kafka-streams/pom.xml" />
+        <option value="$PROJECT_DIR$/kafka-streams-project/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/kafka-streams/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_24" default="true" project-jdk-name="24" project-jdk-type="JavaSDK">

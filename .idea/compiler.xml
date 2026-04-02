@@ -6,10 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="kafka-producer-wikimedia" />
         <module name="project-opensearch" />
         <module name="kafka-starter" />
+        <module name="kafka-producer-wikimedia" />
+        <module name="kafka-streams-project" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kafka-streams" target="24" />
+    </bytecodeTargetLevel>
   </component>
 </project>
