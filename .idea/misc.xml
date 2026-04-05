@@ -10,11 +10,14 @@
         <option value="$PROJECT_DIR$/kafka-streams/pom.xml" />
         <option value="$PROJECT_DIR$/kafka-streams-project/pom.xml" />
         <option value="$PROJECT_DIR$/kafka-custom-connector/pom.xml" />
+        <option value="$PROJECT_DIR$/library-events-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/library-events-producer-springboot/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/kafka-streams/pom.xml" />
+        <option value="$PROJECT_DIR$/library-events-producer/pom.xml" />
       </set>
     </option>
   </component>
