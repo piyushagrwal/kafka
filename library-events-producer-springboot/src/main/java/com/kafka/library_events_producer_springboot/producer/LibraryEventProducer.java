@@ -38,6 +38,8 @@ public class LibraryEventProducer {
         Integer key = libraryEvent.libraryEventId();
         String value = objectMapper.writeValueAsString(libraryEvent);
 
+        // 1. Blocking call - get metadata about kafka cluster
+        // 2. Send Message Async, return a completablefuture happens in background
         var completableFuture = kafkaTemplate.sendDefault(key, value);
         return completableFuture
                 .whenComplete((sendResult, throwable) -> {
@@ -50,6 +52,7 @@ public class LibraryEventProducer {
                 });
     }
 
+    // Recommended, Async
     public CompletableFuture<SendResult<Integer, String>> sendLibraryEvent_Approach2(LibraryEvent libraryEvent) {
 
         Integer key = libraryEvent.libraryEventId();
@@ -83,6 +86,8 @@ public class LibraryEventProducer {
         String value = objectMapper.writeValueAsString(libraryEvent);
         SendResult<Integer, String> sendResult = null;
         try {
+            // 1. Blocking call - get metadata about kafka cluster
+            // 2. Block and wait until message is sent
             sendResult = kafkaTemplate.sendDefault(key, value).get(1, TimeUnit.SECONDS);
         } catch (ExecutionException | InterruptedException e) {
             log.error("ExecutionException/InterruptedException Sending the Message and the exception is {}", e.getMessage());

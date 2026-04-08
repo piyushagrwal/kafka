@@ -12,6 +12,7 @@
         <module name="kafka-starter" />
         <module name="kafka-producer-wikimedia" />
         <module name="kafka-streams-project" />
+        <module name="library-events-consumer-springboot" />
       </profile>
       <profile name="Annotation profile for library-events-producer-springboot" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -25,11 +26,13 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="kafka-streams" target="24" />
+      <module name="library-events-consumer-springboot" target="21" />
       <module name="library-events-producer" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="library-events-consumer-springboot" options="-parameters" />
       <module name="library-events-producer" options="-parameters" />
       <module name="library-events-producer-springboot" options="-parameters" />
     </option>
